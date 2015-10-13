@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-COMPILED_AT='Tue Oct 06 16:22:42 PDT 2015'
+COMPILED_AT='Tue Oct 13 17:36:47 EDT 2015'
 #
 #  _           _        _ _  __           _
 # (_)_ __  ___| |_ __ _| | |/ _| ___  ___| |_
@@ -155,13 +155,13 @@ function inform () {
 
 function warn () {
   if [[ $2 ]]; then echo ""; fi
-  echo -e "${BG_RED}${WHITE}${BOLD}>>>>  $1 ${RESET}"
+  echo -e "${BG_RED}${BLACK}${BOLD}>>>>  $1 ${RESET}"
 }
 
 function pause_awhile () {
   if [[ $2 ]]; then echo ""; fi
-  echo -e "${BG_YELLOW}${WHITE}${BOLD}>>>>  $1 ${RESET}"
-  read -p "${BG_YELLOW}${WHITE}${BOLD}Press <Enter> to continue.${RESET}"
+  echo -e "${BG_YELLOW}${BLACK}${BOLD}>>>>  $1 ${RESET}"
+  read -p "${BG_YELLOW}${BLACK}${BOLD}Press <Enter> to continue.${RESET}"
 }
 
 # ------------------------------------------------------------------------------
@@ -273,7 +273,7 @@ show "Complete!"
 #-------------------------------------------------------------------------------
 
 inform "Copying terminal theme to Desktop..." true
-copy_files themes "$HOME/Desktop" "$SCRIPT_SETTINGS/terminal/TommorrowNight.terminal"
+copy_files themes "$HOME/Desktop" "$SCRIPT_THEMES/TommorrowNight.terminal"
 show "Complete!"
 
 #-------------------------------------------------------------------------------
