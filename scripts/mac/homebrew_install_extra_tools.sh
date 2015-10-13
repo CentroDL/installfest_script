@@ -19,6 +19,7 @@ packagelist=(
   phantomjs
 
   # WebKit implementation of qt for Capybara testing
+  # (phlco) might suggest up brew linkapps qt. we'll run it below.
   qt
 
   # qt for mavericks
@@ -41,5 +42,7 @@ brew install ${packagelist[@]}
 # List of useful Quick Look plugins for developers
 # NOTE (phlco) necessary?
 # brew cask install qlcolorcode qlstephen qlmarkdown quicklook-json qlprettypatch quicklook-csv betterzipql webp-quicklook suspicious-package
+# (phlco) see above for qt
+brew linkapps qt
 
 show "Complete!"

@@ -8,6 +8,9 @@ inform "Installing Homebrew Cask, to handle Mac binaries (apps)..." true
 brew tap phinze/homebrew-cask
 brew install brew-cask
 
+# (phlco) brew cask install threw some permission errors last time...
+sudo chown -R ${USER} /opt/homebrew-cask
+
 # load a tap of different versions of apps (for Sublime Text 3)
 brew tap caskroom/versions
 show "Complete!"
