@@ -3,5 +3,5 @@
 #-------------------------------------------------------------------------------
 
 inform "Copying terminal theme to Desktop..." true
-copy_files themes "$HOME/Desktop" "$SCRIPT_SETTINGS/terminal/TommorrowNight.terminal"
+copy_files themes "$HOME/Desktop" "$SCRIPT_THEMES/TommorrowNight.terminal"
 show "Complete!"
