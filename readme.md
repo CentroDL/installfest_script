@@ -34,7 +34,7 @@ have multiple users, let the instructors know!
 Paste this script into a Terminal prompt:
 
 ```
-bash <(curl -sL https://raw.githubusercontent.com/ga-instructors/installfest_script/master/builds/mac)
+bash <(curl -sL https://raw.githubusercontent.com/phlco/installfest_script/master/builds/mac)
 ```
 
 ##### For Ubuntu Linux
@@ -42,7 +42,7 @@ bash <(curl -sL https://raw.githubusercontent.com/ga-instructors/installfest_scr
 Paste this script into a Terminal prompt:
 
 ```
-bash <(wget -qO- https://raw.githubusercontent.com/ga-instructors/installfest_script/master/builds/ubuntu)
+bash <(wget -qO- https://raw.githubusercontent.com/phlco/installfest_script/master/builds/ubuntu)
 ```
 
 ##### Run the script
