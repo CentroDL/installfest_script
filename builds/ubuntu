@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-COMPILED_AT='Tue Oct 13 17:36:47 EDT 2015'
+COMPILED_AT='Mon Oct 19 00:32:36 EDT 2015'
 #
 #  _           _        _ _  __           _
 # (_)_ __  ___| |_ __ _| | |/ _| ___  ___| |_
@@ -29,6 +29,12 @@ COMPILED_AT='Tue Oct 13 17:36:47 EDT 2015'
 # http://www.gnu.org/software/bash/manual/bashref.html
 # http://www.shellcheck.net
 # http://explainshell.com/
+# send a curl POST to the signaling server so we can track a student's progress of the installfest script.
+# "{"step":"scripts/utils/script_header.sh"}" gets gsubbed into the current scriptname and user info JSON
+# $REPORT_LOG_URL can be found/edited in scripts/utils/script_env_vars.sh
+
+curl -X POST -H "Content-Type:application/json" -d "{"step":"scripts/utils/script_header.sh"}" $REPORT_LOG_URL
+
 
 #-------------------------------------------------------------------------------
 # Set up basic env vars (utils/script_env_vars.sh)
@@ -84,8 +90,17 @@ STUDENT_FOLDER="$HOME/code/wdi"
 # TODO (PJ) update how reporting is done?
 # OWNER="ga-students"
 # REPO="wdi_melville_instructors"
+REPORT_LOG_URL="http://requestb.in/vtv1lkvt"
+
 
 mkdir -p "$SCRIPT_ROOT"
+
+# send a curl POST to the signaling server so we can track a student's progress of the installfest script.
+# "{"step":"scripts/utils/script_env_vars.sh"}" gets gsubbed into the current scriptname and user info JSON
+# $REPORT_LOG_URL can be found/edited in scripts/utils/script_env_vars.sh
+
+curl -X POST -H "Content-Type:application/json" -d "{"step":"scripts/utils/script_env_vars.sh"}" $REPORT_LOG_URL
+
 
 #-------------------------------------------------------------------------------
 # Set text formatting (utils/define_terminal_colors.sh)
@@ -126,6 +141,12 @@ UNDERLINE=$(  tput smul)
 NOUNDERLINE=$(tput rmul)
 BOLD=$(       tput bold)
 ITALIC=$(     tput sitm)
+# send a curl POST to the signaling server so we can track a student's progress of the installfest script.
+# "{"step":"scripts/utils/define_terminal_colors.sh"}" gets gsubbed into the current scriptname and user info JSON
+# $REPORT_LOG_URL can be found/edited in scripts/utils/script_env_vars.sh
+
+curl -X POST -H "Content-Type:application/json" -d "{"step":"scripts/utils/define_terminal_colors.sh"}" $REPORT_LOG_URL
+
 
 #-------------------------------------------------------------------------------
 # Logging (utils/log_file.sh)
@@ -141,6 +162,12 @@ exec > >(tee $LOGFILE); exec 2>&1
 echo "Script compiled at: ${COMPILED_AT}"
 echo "Script execution begun: $(date)"
 echo ""
+# send a curl POST to the signaling server so we can track a student's progress of the installfest script.
+# "{"step":"scripts/utils/log_file.sh"}" gets gsubbed into the current scriptname and user info JSON
+# $REPORT_LOG_URL can be found/edited in scripts/utils/script_env_vars.sh
+
+curl -X POST -H "Content-Type:application/json" -d "{"step":"scripts/utils/log_file.sh"}" $REPORT_LOG_URL
+
 
 # utils/log_screen.sh
 
@@ -163,6 +190,12 @@ function pause_awhile () {
   echo -e "${BG_YELLOW}${BLACK}${BOLD}>>>>  $1 ${RESET}"
   read -p "${BG_YELLOW}${BLACK}${BOLD}Press <Enter> to continue.${RESET}"
 }
+# send a curl POST to the signaling server so we can track a student's progress of the installfest script.
+# "{"step":"scripts/utils/log_screen.sh"}" gets gsubbed into the current scriptname and user info JSON
+# $REPORT_LOG_URL can be found/edited in scripts/utils/script_env_vars.sh
+
+curl -X POST -H "Content-Type:application/json" -d "{"step":"scripts/utils/log_screen.sh"}" $REPORT_LOG_URL
+
 
 #-------------------------------------------------------------------------------
 # We begin! (utils/script_instructions.sh)
@@ -176,6 +209,12 @@ show "${BOLD}computer's password. ${RESET}"
 show ""
 show "This script will install, update, and configure files and "
 show "applications that you will use in class."
+# send a curl POST to the signaling server so we can track a student's progress of the installfest script.
+# "{"step":"scripts/utils/script_instructions.sh"}" gets gsubbed into the current scriptname and user info JSON
+# $REPORT_LOG_URL can be found/edited in scripts/utils/script_env_vars.sh
+
+curl -X POST -H "Content-Type:application/json" -d "{"step":"scripts/utils/script_instructions.sh"}" $REPORT_LOG_URL
+
 
 # utils/password_capture.sh
 
@@ -185,9 +224,21 @@ inform "  we can make the necessary changes. "
 inform "  The password will not be visible as you type: "
 
 sudo -p "Password:" echo "${BG_WHITE}> Thank you! ${RESET}"
+# send a curl POST to the signaling server so we can track a student's progress of the installfest script.
+# "{"step":"scripts/utils/password_capture.sh"}" gets gsubbed into the current scriptname and user info JSON
+# $REPORT_LOG_URL can be found/edited in scripts/utils/script_env_vars.sh
+
+curl -X POST -H "Content-Type:application/json" -d "{"step":"scripts/utils/password_capture.sh"}" $REPORT_LOG_URL
+
 
 # TODO (phlco) remove the description part with a regex capture group
 os_version=$(lsb_release -a | grep -i Description)
+# send a curl POST to the signaling server so we can track a student's progress of the installfest script.
+# "{"step":"scripts/ubuntu/determine_os_version.sh"}" gets gsubbed into the current scriptname and user info JSON
+# $REPORT_LOG_URL can be found/edited in scripts/utils/script_env_vars.sh
+
+curl -X POST -H "Content-Type:application/json" -d "{"step":"scripts/ubuntu/determine_os_version.sh"}" $REPORT_LOG_URL
+
 
 #-------------------------------------------------------------------------------
 # Check for software updates
@@ -196,6 +247,12 @@ os_version=$(lsb_release -a | grep -i Description)
 sudo apt-get -y update
 sudo apt-get -y upgrade
 sudo apt-get -y dist-upgrade
+# send a curl POST to the signaling server so we can track a student's progress of the installfest script.
+# "{"step":"scripts/ubuntu/update_software.sh"}" gets gsubbed into the current scriptname and user info JSON
+# $REPORT_LOG_URL can be found/edited in scripts/utils/script_env_vars.sh
+
+curl -X POST -H "Content-Type:application/json" -d "{"step":"scripts/ubuntu/update_software.sh"}" $REPORT_LOG_URL
+
 
 packagelist=(
   # Autoconf is an extensible package of M4 macros that produce shell scripts
@@ -290,6 +347,12 @@ packagelist=(
 sudo apt-get -y install ${packagelist[@]}
 
 assert_package_installed ${packagelist[@]}
+# send a curl POST to the signaling server so we can track a student's progress of the installfest script.
+# "{"step":"scripts/ubuntu/install_system_packages.sh"}" gets gsubbed into the current scriptname and user info JSON
+# $REPORT_LOG_URL can be found/edited in scripts/utils/script_env_vars.sh
+
+curl -X POST -H "Content-Type:application/json" -d "{"step":"scripts/ubuntu/install_system_packages.sh"}" $REPORT_LOG_URL
+
 
 #-------------------------------------------------------------------------------
 # Capture GitHub credentials (github_capture_credentials.sh)
@@ -305,6 +368,12 @@ read -p "Enter your (real) first name: "  fname
 read -p "Enter your (real) last name: "   lname
 
 show "Thank you!"
+# send a curl POST to the signaling server so we can track a student's progress of the installfest script.
+# "{"step":"scripts/github_capture_credentials.sh"}" gets gsubbed into the current scriptname and user info JSON
+# $REPORT_LOG_URL can be found/edited in scripts/utils/script_env_vars.sh
+
+curl -X POST -H "Content-Type:application/json" -d "{"step":"scripts/github_capture_credentials.sh"}" $REPORT_LOG_URL
+
 
 #-------------------------------------------------------------------------------
 # Create and Upload SSH key (github_add_ssh_key.sh)
@@ -344,6 +413,12 @@ curl https://api.github.com/user/keys \
 
 echo ""
 show "Key uploaded!" true
+# send a curl POST to the signaling server so we can track a student's progress of the installfest script.
+# "{"step":"scripts/github_add_ssh_key.sh"}" gets gsubbed into the current scriptname and user info JSON
+# $REPORT_LOG_URL can be found/edited in scripts/utils/script_env_vars.sh
+
+curl -X POST -H "Content-Type:application/json" -d "{"step":"scripts/github_add_ssh_key.sh"}" $REPORT_LOG_URL
+
 
 #-------------------------------------------------------------------------------
 # Add user's Git info to ~/.gitconfig (git_configure.sh)
@@ -390,6 +465,12 @@ git config --global alias.again 'commit -c ORIG_HEAD'
 git config --global alias.deploy 'subtree push --prefix dist/ origin gh-pages'
 
 show "Complete!"
+# send a curl POST to the signaling server so we can track a student's progress of the installfest script.
+# "{"step":"scripts/git_configure.sh"}" gets gsubbed into the current scriptname and user info JSON
+# $REPORT_LOG_URL can be found/edited in scripts/utils/script_env_vars.sh
+
+curl -X POST -H "Content-Type:application/json" -d "{"step":"scripts/git_configure.sh"}" $REPORT_LOG_URL
+
 
 # rbenv_remove_rvm.sh
 
@@ -403,6 +484,12 @@ if hash rvm 2>/dev/null || [ -d ~/.rvm ]; then
 else
   show "RVM is not installed. Moving on."
 fi
+# send a curl POST to the signaling server so we can track a student's progress of the installfest script.
+# "{"step":"scripts/rbenv_remove_rvm.sh"}" gets gsubbed into the current scriptname and user info JSON
+# $REPORT_LOG_URL can be found/edited in scripts/utils/script_env_vars.sh
+
+curl -X POST -H "Content-Type:application/json" -d "{"step":"scripts/rbenv_remove_rvm.sh"}" $REPORT_LOG_URL
+
 
 #-------------------------------------------------------------------------------
 # Install rbenv (rbenv_install.sh)
@@ -454,6 +541,12 @@ else
 fi
 
 show "Complete!"
+# send a curl POST to the signaling server so we can track a student's progress of the installfest script.
+# "{"step":"scripts/rbenv_install.sh"}" gets gsubbed into the current scriptname and user info JSON
+# $REPORT_LOG_URL can be found/edited in scripts/utils/script_env_vars.sh
+
+curl -X POST -H "Content-Type:application/json" -d "{"step":"scripts/rbenv_install.sh"}" $REPORT_LOG_URL
+
 
 #-------------------------------------------------------------------------------
 # Set default gems to install by rbenv (rbenv_set_default_gems.sh)
@@ -490,6 +583,12 @@ for gem in ${GEMLIST[@]}; do
 done
 
 show "Complete!"
+# send a curl POST to the signaling server so we can track a student's progress of the installfest script.
+# "{"step":"scripts/rbenv_set_default_gems.sh"}" gets gsubbed into the current scriptname and user info JSON
+# $REPORT_LOG_URL can be found/edited in scripts/utils/script_env_vars.sh
+
+curl -X POST -H "Content-Type:application/json" -d "{"step":"scripts/rbenv_set_default_gems.sh"}" $REPORT_LOG_URL
+
 
 # For testing and simplicity with Ubuntu, add these to the .bashrc until it's
 # overwritten...
@@ -497,6 +596,12 @@ echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
 echo 'eval "$(rbenv init -)"' >> ~/.bashrc
 
 source ~/.bashrc
+# send a curl POST to the signaling server so we can track a student's progress of the installfest script.
+# "{"step":"scripts/ubuntu/add_rbenv_to_bashrc.sh"}" gets gsubbed into the current scriptname and user info JSON
+# $REPORT_LOG_URL can be found/edited in scripts/utils/script_env_vars.sh
+
+curl -X POST -H "Content-Type:application/json" -d "{"step":"scripts/ubuntu/add_rbenv_to_bashrc.sh"}" $REPORT_LOG_URL
+
 
 #-------------------------------------------------------------------------------
 # Install Ruby (rbenv_install_version.sh)
@@ -512,11 +617,23 @@ if [[ "$ruby_check" == *$BELOVED_RUBY_VERSION* ]]; then
 else
   rbenv install $BELOVED_RUBY_VERSION
 fi
+# send a curl POST to the signaling server so we can track a student's progress of the installfest script.
+# "{"step":"scripts/rbenv_install_version.sh"}" gets gsubbed into the current scriptname and user info JSON
+# $REPORT_LOG_URL can be found/edited in scripts/utils/script_env_vars.sh
+
+curl -X POST -H "Content-Type:application/json" -d "{"step":"scripts/rbenv_install_version.sh"}" $REPORT_LOG_URL
+
 
 # rbenv_set_version.sh
 
 rbenv global $BELOVED_RUBY_VERSION
 rbenv rehash
+# send a curl POST to the signaling server so we can track a student's progress of the installfest script.
+# "{"step":"scripts/rbenv_set_version.sh"}" gets gsubbed into the current scriptname and user info JSON
+# $REPORT_LOG_URL can be found/edited in scripts/utils/script_env_vars.sh
+
+curl -X POST -H "Content-Type:application/json" -d "{"step":"scripts/rbenv_set_version.sh"}" $REPORT_LOG_URL
+
 
 # ubuntu/nvm_setup.sh
 
@@ -524,6 +641,12 @@ rbenv rehash
 sudo apt-get install build-essential libssl-dev
 
 # git clone https://github.com/creationix/nvm.git ~/.nvm && cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`
+# send a curl POST to the signaling server so we can track a student's progress of the installfest script.
+# "{"step":"scripts/ubuntu/nvm_setup.sh"}" gets gsubbed into the current scriptname and user info JSON
+# $REPORT_LOG_URL can be found/edited in scripts/utils/script_env_vars.sh
+
+curl -X POST -H "Content-Type:application/json" -d "{"step":"scripts/ubuntu/nvm_setup.sh"}" $REPORT_LOG_URL
+
 
 #-------------------------------------------------------------------------------
 # Install NVM (nvm_install.sh)
@@ -540,6 +663,12 @@ else
   git clone https://github.com/creationix/nvm.git "$NVM_DIR" && cd "$NVM_DIR" && git checkout `git describe --abbrev=0 --tags`
   show "Complete!"
 fi
+# send a curl POST to the signaling server so we can track a student's progress of the installfest script.
+# "{"step":"scripts/nvm_install.sh"}" gets gsubbed into the current scriptname and user info JSON
+# $REPORT_LOG_URL can be found/edited in scripts/utils/script_env_vars.sh
+
+curl -X POST -H "Content-Type:application/json" -d "{"step":"scripts/nvm_install.sh"}" $REPORT_LOG_URL
+
 
 #-------------------------------------------------------------------------------
 # Install Node (nvm_install_version.sh)
@@ -558,6 +687,12 @@ nvm install "$NODE_VERSION"
 npm install npm -g
 
 show "Complete!"
+# send a curl POST to the signaling server so we can track a student's progress of the installfest script.
+# "{"step":"scripts/nvm_install_version.sh"}" gets gsubbed into the current scriptname and user info JSON
+# $REPORT_LOG_URL can be found/edited in scripts/utils/script_env_vars.sh
+
+curl -X POST -H "Content-Type:application/json" -d "{"step":"scripts/nvm_install_version.sh"}" $REPORT_LOG_URL
+
 
 # Google Chrome.........The Browser
 # HipChat...............The Chat Client
@@ -599,6 +734,12 @@ sudo apt-get -y install vim
 
 # emacs
 # sudo apt-get -y install emacs
+# send a curl POST to the signaling server so we can track a student's progress of the installfest script.
+# "{"step":"scripts/ubuntu/install_apps.sh"}" gets gsubbed into the current scriptname and user info JSON
+# $REPORT_LOG_URL can be found/edited in scripts/utils/script_env_vars.sh
+
+curl -X POST -H "Content-Type:application/json" -d "{"step":"scripts/ubuntu/install_apps.sh"}" $REPORT_LOG_URL
+
 
 # open source object-relational database management system
 # https://www.digitalocean.com/community/articles/how-to-install-and-use-postgresql-on-ubuntu-12-04
@@ -622,12 +763,24 @@ touch ~/.psql_history
 createdb $USER
 
 # Install ruby interface for Postgres
-gem install pg
+gem install pg# send a curl POST to the signaling server so we can track a student's progress of the installfest script.
+# "{"step":"scripts/ubuntu/install_postgres.sh"}" gets gsubbed into the current scriptname and user info JSON
+# $REPORT_LOG_URL can be found/edited in scripts/utils/script_env_vars.sh
+
+curl -X POST -H "Content-Type:application/json" -d "{"step":"scripts/ubuntu/install_postgres.sh"}" $REPORT_LOG_URL
+
+
 # code_dir_create.sh
 
 inform "Creating directory for wdi: $STUDENT_FOLDER" true
 mkdir -p $STUDENT_FOLDER
 show "Complete!"
+# send a curl POST to the signaling server so we can track a student's progress of the installfest script.
+# "{"step":"scripts/code_dir_create.sh"}" gets gsubbed into the current scriptname and user info JSON
+# $REPORT_LOG_URL can be found/edited in scripts/utils/script_env_vars.sh
+
+curl -X POST -H "Content-Type:application/json" -d "{"step":"scripts/code_dir_create.sh"}" $REPORT_LOG_URL
+
 
 #-------------------------------------------------------------------------------
 # We're done! (utils/script_footer.sh)
@@ -637,4 +790,10 @@ inform "We're done!" true
 echo "#-- fin -- #"
 
 warn "Please quit and re-open your terminal!" true
+# send a curl POST to the signaling server so we can track a student's progress of the installfest script.
+# "{"step":"scripts/utils/script_footer.sh"}" gets gsubbed into the current scriptname and user info JSON
+# $REPORT_LOG_URL can be found/edited in scripts/utils/script_env_vars.sh
+
+curl -X POST -H "Content-Type:application/json" -d "{"step":"scripts/utils/script_footer.sh"}" $REPORT_LOG_URL
+
 

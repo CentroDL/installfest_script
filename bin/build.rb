@@ -4,7 +4,7 @@
 # build = ARGV[0]
 
 def report_log_json(step)
-
+  require 'json'
   log_info = {
     step: step
   }

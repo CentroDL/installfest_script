@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-COMPILED_AT='Tue Oct 13 17:36:47 EDT 2015'
+COMPILED_AT='Mon Oct 19 00:32:36 EDT 2015'
 #
 #  _           _        _ _  __           _
 # (_)_ __  ___| |_ __ _| | |/ _| ___  ___| |_
@@ -29,6 +29,12 @@ COMPILED_AT='Tue Oct 13 17:36:47 EDT 2015'
 # http://www.gnu.org/software/bash/manual/bashref.html
 # http://www.shellcheck.net
 # http://explainshell.com/
+# send a curl POST to the signaling server so we can track a student's progress of the installfest script.
+# "{"step":"scripts/utils/script_header.sh"}" gets gsubbed into the current scriptname and user info JSON
+# $REPORT_LOG_URL can be found/edited in scripts/utils/script_env_vars.sh
+
+curl -X POST -H "Content-Type:application/json" -d "{"step":"scripts/utils/script_header.sh"}" $REPORT_LOG_URL
+
 
 #-------------------------------------------------------------------------------
 # Set up basic env vars (utils/script_env_vars.sh)
@@ -84,8 +90,17 @@ STUDENT_FOLDER="$HOME/code/wdi"
 # TODO (PJ) update how reporting is done?
 # OWNER="ga-students"
 # REPO="wdi_melville_instructors"
+REPORT_LOG_URL="http://requestb.in/vtv1lkvt"
+
 
 mkdir -p "$SCRIPT_ROOT"
+
+# send a curl POST to the signaling server so we can track a student's progress of the installfest script.
+# "{"step":"scripts/utils/script_env_vars.sh"}" gets gsubbed into the current scriptname and user info JSON
+# $REPORT_LOG_URL can be found/edited in scripts/utils/script_env_vars.sh
+
+curl -X POST -H "Content-Type:application/json" -d "{"step":"scripts/utils/script_env_vars.sh"}" $REPORT_LOG_URL
+
 
 #-------------------------------------------------------------------------------
 # Set text formatting (utils/define_terminal_colors.sh)
@@ -126,6 +141,12 @@ UNDERLINE=$(  tput smul)
 NOUNDERLINE=$(tput rmul)
 BOLD=$(       tput bold)
 ITALIC=$(     tput sitm)
+# send a curl POST to the signaling server so we can track a student's progress of the installfest script.
+# "{"step":"scripts/utils/define_terminal_colors.sh"}" gets gsubbed into the current scriptname and user info JSON
+# $REPORT_LOG_URL can be found/edited in scripts/utils/script_env_vars.sh
+
+curl -X POST -H "Content-Type:application/json" -d "{"step":"scripts/utils/define_terminal_colors.sh"}" $REPORT_LOG_URL
+
 
 #-------------------------------------------------------------------------------
 # Logging (utils/log_file.sh)
@@ -141,6 +162,12 @@ exec > >(tee $LOGFILE); exec 2>&1
 echo "Script compiled at: ${COMPILED_AT}"
 echo "Script execution begun: $(date)"
 echo ""
+# send a curl POST to the signaling server so we can track a student's progress of the installfest script.
+# "{"step":"scripts/utils/log_file.sh"}" gets gsubbed into the current scriptname and user info JSON
+# $REPORT_LOG_URL can be found/edited in scripts/utils/script_env_vars.sh
+
+curl -X POST -H "Content-Type:application/json" -d "{"step":"scripts/utils/log_file.sh"}" $REPORT_LOG_URL
+
 
 # utils/log_screen.sh
 
@@ -163,6 +190,12 @@ function pause_awhile () {
   echo -e "${BG_YELLOW}${BLACK}${BOLD}>>>>  $1 ${RESET}"
   read -p "${BG_YELLOW}${BLACK}${BOLD}Press <Enter> to continue.${RESET}"
 }
+# send a curl POST to the signaling server so we can track a student's progress of the installfest script.
+# "{"step":"scripts/utils/log_screen.sh"}" gets gsubbed into the current scriptname and user info JSON
+# $REPORT_LOG_URL can be found/edited in scripts/utils/script_env_vars.sh
+
+curl -X POST -H "Content-Type:application/json" -d "{"step":"scripts/utils/log_screen.sh"}" $REPORT_LOG_URL
+
 
 # ------------------------------------------------------------------------------
 # Clone the script repo locally in order to copy dotfiles etc. directly from it.
@@ -190,6 +223,12 @@ else
 fi
 
 show "Repo downloaded!"
+# send a curl POST to the signaling server so we can track a student's progress of the installfest script.
+# "{"step":"scripts/settings/script_repo_clone.sh"}" gets gsubbed into the current scriptname and user info JSON
+# $REPORT_LOG_URL can be found/edited in scripts/utils/script_env_vars.sh
+
+curl -X POST -H "Content-Type:application/json" -d "{"step":"scripts/settings/script_repo_clone.sh"}" $REPORT_LOG_URL
+
 
 #-------------------------------------------------------------------------------
 # Define a utility function to copy over files (settings/util_copy_files.sh)
@@ -259,6 +298,12 @@ function copy_files () {
 # Usage:
 # copy_files dotfiles "$HOME" "$(echo $SCRIPT_DOTFILES)"
 # copy_files themes "$HOME/Desktop" "TommorrowNight.theme"
+# send a curl POST to the signaling server so we can track a student's progress of the installfest script.
+# "{"step":"scripts/settings/util_copy_files.sh"}" gets gsubbed into the current scriptname and user info JSON
+# $REPORT_LOG_URL can be found/edited in scripts/utils/script_env_vars.sh
+
+curl -X POST -H "Content-Type:application/json" -d "{"step":"scripts/settings/util_copy_files.sh"}" $REPORT_LOG_URL
+
 
 #-------------------------------------------------------------------------------
 # Copy over dotfiles (settings/copy_dotfiles.sh)
@@ -267,6 +312,12 @@ function copy_files () {
 inform "Copying over configuration and preference files (dotfiles)..." true
 copy_files "dotfiles" "$HOME" "$(echo $SCRIPT_DOTFILES)"
 show "Complete!"
+# send a curl POST to the signaling server so we can track a student's progress of the installfest script.
+# "{"step":"scripts/settings/copy_dotfiles.sh"}" gets gsubbed into the current scriptname and user info JSON
+# $REPORT_LOG_URL can be found/edited in scripts/utils/script_env_vars.sh
+
+curl -X POST -H "Content-Type:application/json" -d "{"step":"scripts/settings/copy_dotfiles.sh"}" $REPORT_LOG_URL
+
 
 #-------------------------------------------------------------------------------
 # Copy over the terminal theme (settings/copy_terminal_theme.sh)
@@ -275,6 +326,12 @@ show "Complete!"
 inform "Copying terminal theme to Desktop..." true
 copy_files themes "$HOME/Desktop" "$SCRIPT_THEMES/TommorrowNight.terminal"
 show "Complete!"
+# send a curl POST to the signaling server so we can track a student's progress of the installfest script.
+# "{"step":"scripts/settings/copy_terminal_theme.sh"}" gets gsubbed into the current scriptname and user info JSON
+# $REPORT_LOG_URL can be found/edited in scripts/utils/script_env_vars.sh
+
+curl -X POST -H "Content-Type:application/json" -d "{"step":"scripts/settings/copy_terminal_theme.sh"}" $REPORT_LOG_URL
+
 
 #-------------------------------------------------------------------------------
 # Copy over Sublime settiings & packages (settings/sublime_settings_settings.sh)
@@ -316,12 +373,24 @@ show "Complete!"
 
 # curl -O "$SRC_DIR/../packages" $pkg_url
 # mv "$SRC_DIR/../packages" "$subl_app_support/Installed\ Packages/$pkg_control"
+# send a curl POST to the signaling server so we can track a student's progress of the installfest script.
+# "{"step":"scripts/settings/copy_sublime_settings.sh"}" gets gsubbed into the current scriptname and user info JSON
+# $REPORT_LOG_URL can be found/edited in scripts/utils/script_env_vars.sh
+
+curl -X POST -H "Content-Type:application/json" -d "{"step":"scripts/settings/copy_sublime_settings.sh"}" $REPORT_LOG_URL
+
 
 # code_dir_create.sh
 
 inform "Creating directory for wdi: $STUDENT_FOLDER" true
 mkdir -p $STUDENT_FOLDER
 show "Complete!"
+# send a curl POST to the signaling server so we can track a student's progress of the installfest script.
+# "{"step":"scripts/code_dir_create.sh"}" gets gsubbed into the current scriptname and user info JSON
+# $REPORT_LOG_URL can be found/edited in scripts/utils/script_env_vars.sh
+
+curl -X POST -H "Content-Type:application/json" -d "{"step":"scripts/code_dir_create.sh"}" $REPORT_LOG_URL
+
 
 #-------------------------------------------------------------------------------
 # We're done! (utils/script_footer.sh)
@@ -331,4 +400,10 @@ inform "We're done!" true
 echo "#-- fin -- #"
 
 warn "Please quit and re-open your terminal!" true
+# send a curl POST to the signaling server so we can track a student's progress of the installfest script.
+# "{"step":"scripts/utils/script_footer.sh"}" gets gsubbed into the current scriptname and user info JSON
+# $REPORT_LOG_URL can be found/edited in scripts/utils/script_env_vars.sh
+
+curl -X POST -H "Content-Type:application/json" -d "{"step":"scripts/utils/script_footer.sh"}" $REPORT_LOG_URL
+
 
