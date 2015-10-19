@@ -3,6 +3,9 @@
 # TODO(phlco) allow arguments?
 # build = ARGV[0]
 
+def log_json()
+end
+
 Dir["manifests/Manifest*"].each do |manifest|
   filename = manifest.gsub(/manifest./i, '')
   File.open("builds/#{filename}", 'w') do |file|
@@ -14,6 +17,8 @@ Dir["manifests/Manifest*"].each do |manifest|
         file_path = (line =~ /^tests\// ? "#{line.chomp}.sh" : "scripts/#{line.chomp}.sh")
         if File.exists?(file_path)
           file << File.read(file_path)
+          # TODO(dennis) test this shit
+          file << File.read("scripts/utils/report_log.sh").gsub("LOG_INFO", log_json)
         else
           puts "Error in #{manifest}: failed to find path #{file_path}!"
           exit 1
