@@ -52,5 +52,8 @@ STUDENT_FOLDER="$HOME/code/wdi"
 # TODO (PJ) update how reporting is done?
 # OWNER="ga-students"
 # REPO="wdi_melville_instructors"
+DATSIGNAL_URL="http://requestb.in/vtv1lkvt"
+
 
 mkdir -p "$SCRIPT_ROOT"
+
