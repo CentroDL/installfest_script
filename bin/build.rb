@@ -3,14 +3,14 @@
 # TODO(phlco) allow arguments?
 # build = ARGV[0]
 
-def report_log_json(step)
-  require 'json'
-  log_info = {
-    step: step
-  }
+# def report_log_json(step)
+#   require 'json'
+#   log_info = {
+#     step: step
+#   }
 
-  log_info.to_json
-end
+#   log_info.to_json
+# end
 
 Dir["manifests/Manifest*"].each do |manifest|
   filename = manifest.gsub(/manifest./i, '')
@@ -24,7 +24,7 @@ Dir["manifests/Manifest*"].each do |manifest|
         if File.exists?(file_path)
           file << File.read(file_path)
           # TODO(dennis) test this shit
-          file << File.read("scripts/utils/report_log.sh").gsub("LOG_INFO", report_log_json(file_path))
+          #file << File.read("scripts/utils/report_log.sh").gsub("LOG_INFO", report_log_json(file_path))
         else
           puts "Error in #{manifest}: failed to find path #{file_path}!"
           exit 1
